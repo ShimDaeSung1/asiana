@@ -1,0 +1,20 @@
+drop sequence if exists product_seq;
+create sequence product_seq;
+drop table if exists product;
+
+create table product
+(
+	id integer not null default nextval('product_seq') primary key,
+  	price integer,
+  	stock integer,
+  	name varchar(255),
+  	category_id integer,
+  	foreign key (category_id) references category(id)
+ );
+ 
+--insert into product(price, stock, name, category_id)
+--values (4500, 23, '마일드세븐', 22);
+--insert into product(price, stock, name, category_id)
+--values (24500, 10, '나이키티셔츠', 22);
+
+commit;

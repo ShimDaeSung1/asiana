@@ -1,0 +1,19 @@
+create sequence user_seq;
+drop table if exists users;
+
+create table users
+(
+	id integer not null default nextval('user_seq') primary key,
+  	passwd varchar(200),
+  	email varchar(50),
+  	post varchar(10),
+  	addr1 varchar(30),
+  	addr2 varchar(200),
+  	role varchar(10)
+);
+  
+
+commit;
+-- insert 문 예시
+-- INSERT INTO	member("passwd", "email", "post", "addr1", "addr2", "roll")
+-- VALUES('pw', 'email', 'post', 'add1', 'add2', 'roll');

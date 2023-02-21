@@ -1,0 +1,14 @@
+create sequence review_seq;
+drop table if exists review;
+
+create table review
+(
+	id integer not null default nextval('review_seq') primary key,
+	content varchar(255),
+	user_id integer,
+	product_id integer,
+	foreign key (user_id) references users(id),
+	foreign key (product_id) references product(id)
+);
+
+commit;

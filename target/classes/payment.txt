@@ -1,0 +1,14 @@
+create sequence payment_seq;
+drop table if exists payment;
+
+create table payment
+(
+	id integer not null default nextval('payment_seq') primary key,
+  	user_id integer,
+  	product_id integer,
+  	pay_date date not null default current_date,
+  	foreign key (user_id) references users(id),
+  	foreign key (product_id) references product(id)
+);
+
+commit;

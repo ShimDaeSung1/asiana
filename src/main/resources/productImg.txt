@@ -1,0 +1,21 @@
+create sequence productImg_seq;
+drop table if exists productImg;
+
+create table productImg
+(
+	id integer not null default nextval('productImg_seq') primary key,
+  	img_name varchar(255),
+  	img_url varchar(255),
+  	origin_name varchar(255),
+ 	product_id integer,
+	foreign key (product_id) references product(id)
+ );
+
+
+-- insert into productImg(product_img_id, img_name, img_url, origin_name, product_id)
+-- values (nextval('productImg_seq'), '마일드세븐', 'C:\img\마일드세븐.png', '원본명', 6);
+-- insert into productImg(product_img_id, img_name, img_url, origin_name, product_id)
+-- values (nextval('productImg_seq'), '나이키티셔츠', 'C:\img\나이키티셔츠.png', '나이키', 3);
+
+commit;
+

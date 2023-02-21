@@ -1,0 +1,16 @@
+<!DOCTYPE html> 
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" th:href="@{/css/test.css}">
+</head>
+<body>
+<h1>ORDER 화면</h1>
+<form th:action="@{/order/{product_id}(id=${product.id})" method="get">
+	adf
+<input type="submit" value="제출">
+</form>
+<hr>
+</body>
+</html>

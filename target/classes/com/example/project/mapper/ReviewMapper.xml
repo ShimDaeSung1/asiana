@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.project.mapper.ReviewMapper">
+	<select id="getReviewList" resultType="ReviewDTO" parameterType="int">
+		select * from review
+		where = #{product_id}
+	</select>
+</mapper>

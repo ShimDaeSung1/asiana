@@ -1,0 +1,16 @@
+create sequence order_seq;
+drop table if exists orderList;
+
+create table orderList
+(
+	id integer not null default nextval('order_seq') primary key,
+  	user_id integer,
+  	product_id integer,
+  	order_date date not null default current_date,
+  	order_status varchar(255),
+ 
+  	foreign key (user_id) references member(id),
+  	foreign key (product_id) references product(id)
+);
+
+commit;

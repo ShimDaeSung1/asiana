@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.project.mapper.ProductMapper">
+	
+	<!-- totalRecord -->
+	<select id="totalRecord" resultType="int">
+		select count(*) from
+		(select ROW_NUMBER() OVER() as rownum, * from product p
+		Inner join productimg i
+		on p.id = i.product_id
+		Inner join category c
+		on p.category_id = c.id  
+		) as d
+	</select>
+	
+	<!-- 페이징 처리 -->
+	<select id="getProductListWithPaging" resultMap = "productListMap" parameterType= "ProductPageRequestDTO" >
+		<![CDATA[
+		select * from
+		(select ROW_NUMBER() OVER() as rownum, * from product p
+		Inner join productimg i
+		on p.id = i.product_id
+		Inner join category c
+		on p.category_id = c.id 
+		order by p.id desc) as d
+		where rownum<= #{page} * #{size}
+		and rownum > (#{page}-1) * #{size}
+		]]>
+	</select>
+	
+	<select id="getOne" resultMap = "productDetailMap" parameterType = "int" >
+		select * from product p 
+		Inner join review r
+		on p.id = r.product_id
+		where p.id = #{id}
+	</select>
+	
+	<resultMap type= "ProductDetailDTO" id = "productDetailMap">
+		<collection property="productDTO" resultMap = "productMap" />
+		<collection property="reviewDTO" resultMap = "reviewMap" />
+	</resultMap>
+	
+	<resultMap type="ReviewDTO" id = "reviewMap">
+		<id property ="id" column="id" />
+		<id property ="userId" column="userid" />
+		<id property ="content" column="content" />
+		<id property ="productId" column="product_id" />
+	</resultMap>
+
+	
+	
+	<resultMap type= "ProductListDTO" id = "productListMap">
+		<collection property="productDTO" resultMap = "productMap" />
+		<collection property="imageDTO" resultMap = "imageMap" />
+		<collection property="categoryDTO" resultMap = "categoryMap" />
+	</resultMap>
+	
+	<select id="getProductList" resultMap = "productListMap">
+		select* from product p
+		Left Outer join productimg i
+		on p.id = i.product_id
+		Left Outer join category c
+		on p.category_id = c.id
+	</select>
+	
+	<resultMap type = "int" id = "rownum">
+		<id property = "rownum" column = "rownum" />
+	</resultMap>
+	
+	
+	<resultMap type="CategoryDTO" id = "categoryMap">
+		<id property ="id" column="id" />
+		<id property ="category" column="category" />
+	</resultMap>
+	
+	<resultMap type="ProductDTO" id = "productMap">
+		<id property ="id" column="id" />
+		<id property ="price" column="price" />
+		<id property ="stock" column="stock" />
+		<id property ="name" column="name" />
+		<id property ="categoryId" column="category_id" />
+	</resultMap>
+	
+	<resultMap type="ImageDTO" id = "imageMap">
+		<id property ="id" column="id" />
+		<id property ="imgName" column="img_name" />
+		<id property ="imgUrl" column="img_url" />
+		<id property ="originName" column="origin_name" />
+		<id property ="productId" column="product_id" />
+	</resultMap>
+	<!--  
+
+	-->
+	
+	<!--  
+	property: 객체 참조변수 명
+	column: DB 컬럼 명
+	-->
+	
+	
+	<insert id="productInsert" parameterType="ProductDTO">
+		insert into product(id, price, stock, name, category_id)
+		values( nextval('product_seq'), #{price}, #{stock}, #{name}, #{categoryId})
+	</insert>
+	
+	<update id="productUpdate" parameterType = "ProductDTO">
+		update product
+		set price = #{price}, stock = #{stock}, name = #{name}, category_id = ${categoryId}
+		where id = #{id}
+	</update>
+	
+	<delete id="productDelete" parameterType="int">
+		delete from product
+		where id = #{id}
+	</delete>
+	
+</mapper>

@@ -1,0 +1,17 @@
+create sequence category_seq;	
+drop table if exists category;
+
+create table category 
+(
+    id integer not null default nextval('category_seq') primary key,
+    category varchar(20)
+);
+
+insert into category (category) values ('남성의류');
+insert into category (category) values ('여성의류');
+insert into category (category) values ('화장품');
+insert into category (category) values ('주류');
+insert into category (category) values ('패션잡화');
+insert into category (category) values ('담배');
+
+commit;

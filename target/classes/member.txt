@@ -1,0 +1,18 @@
+drop table if exists member;
+drop sequence if exists member_seq;
+  
+create sequence member_seq;
+
+create table member
+( id integer not null default nextval('member_seq') primary key,
+  passwd varchar(200),
+  email varchar(50),
+  post varchar(10),
+  addr1 varchar(20),
+  addr2 varchar(200),
+  roles varchar(10),
+  registrationId varchar(10)
+);
+  
+
+commit;

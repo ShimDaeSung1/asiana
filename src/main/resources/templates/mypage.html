@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" th:href="@{/css/test.css}">
+</head>
+<body>
+<h1>회원 정보 수정</h1>
+<ul>
+	<li><a th:href="@{/}">Main 화면 가기</a></li>
+</ul>
+<hr>
+<form th:action="@{/update}" method="post">
+<!-- 비밀번호:<input type="text" name="passwd"><br> -->
+우편번호:<input type="text" name="post"><br>
+주소1:<input type="text" name="addr1"><br>
+주소2:<input type="text" name="addr2"><br>
+<input type="submit" value="확인">
+</form>
+<form th:action="@{/delete}" method="get">
+	<input type="submit" value="삭제">
+</form>
+</body>
+</html>

@@ -1,0 +1,16 @@
+create sequence cart_seq;	
+drop table if exists cart;
+ 
+create table cart 
+(
+    id integer not null default nextval('cart_seq') primary key,
+    cnt integer default 1,
+    user_id Integer,
+	product_id integer,
+	foreign key (user_id) references member(id),
+	foreign key (product_id) references product(id)
+    
+);
+
+
+commit;
